@@ -1,0 +1,41 @@
+<div style="height: 88vh;"
+  class="container  d-flex justify-content-center align-items-center">
+
+  <div style=" background-color: #e6255f; "
+    class="row container rounded d-flex h-75 w-50 align-items-center justify-content-between p-3 border shadow-lg">
+
+    <div class="col-lg-6 d-flex justify-content-center align-items-center">
+      <!-- <img src="" alt=""> -->
+      <i  class="fa-solid fa-right-to-bracket fs-1 text-white"></i>
+    </div>
+
+    <form class="col-lg-6" #loginForm="ngForm" (ngSubmit)="login()"  >
+     
+
+      <div class="mb-3">
+        <label   for="exampleInputEmail1" class="text-white form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1"
+          aria-describedby="emailHelp" name="email" [(ngModel)]="email" email required #useremilinput="ngModel">
+      </div>
+
+       <!-- Invalid Email -->
+       <div *ngIf="useremilinput.invalid && useremilinput.touched" class="text-white ">
+        Invalid Email
+       </div>
+      
+      <div class="mb-3">
+        <label  for="exampleInputPassword1" class="text-white form-label">Password</label>
+        <input  type="password" class="form-control" id="exampleInputPassword1" name="password" [(ngModel)]="password" required pattern="[a-zA-Z0-9]*" minlength="4" #userpassword="ngModel">
+      </div>
+
+       <!-- Invalid Pas -->
+      <div *ngIf="userpassword.invalid && userpassword.touched" class=" text-white">
+        Invalid Password
+       </div>
+
+      <button  [disabled]="loginForm.invalid" type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+  </div>
+
+</div>

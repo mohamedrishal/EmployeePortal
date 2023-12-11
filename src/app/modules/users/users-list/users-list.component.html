@@ -1,0 +1,46 @@
+<div class="d-flex">
+  <div style="background-color: #e6255f;height: 89vh; width: 150px;"
+    class="sidebar text-light p-3 d-flex flex-column">
+    <a class="text-decoration-none text-white  fw-bolder mt-3 "
+      routerLink="/dashboard">Home</a>
+    <a class="text-decoration-none text-white  fw-bolder mt-3 "
+      routerLink="/users">Users</a>
+  </div>
+
+  <div class="container p-5">
+    <div class="d-flex justify-content-between">
+      <h5 class="overflow-hidden">Users</h5>
+      <div><span>Search : <input  type="search" placeholder="Search By User Name" name="" id=""></span>
+      </div>
+      <a routerLink="add" class="btn btn-primary">New User</a></div>
+    <table class="table mt-5 border">
+      <thead>
+        <tr>
+          <th scope="col">User ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+
+        <tr *ngFor="let user of allUsers | search : 'a' " [hidden]="user.id=='1'"  >
+          <th >{{user.id}}</th>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td><span [ngClass]="user.active=='1' ? 'text-success fw-bold' : 'text-warning fw-bold'" >{{user.active=="1"? "Active" : "InActive"}}</span></td>
+          <td>
+            <div class="d-flex ">
+              <a routerLink="edit/{{user.id}}" class="btn btn-primary me-3">Edit</a>
+              <button (click)="removeUser(user.id)" class="btn btn-danger">delete</button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

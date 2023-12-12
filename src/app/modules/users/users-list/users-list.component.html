@@ -10,9 +10,23 @@
   <div class="container p-5">
     <div class="d-flex justify-content-between">
       <h5 class="overflow-hidden">Users</h5>
-      <div><span>Search : <input  type="search" placeholder="Search By User Name" name="" id=""></span>
+      <div>
+        <span>Search : <input [(ngModel)]="searchKey"  type="search" placeholder="Search By User Name" name="" id=""></span>
       </div>
+
+      <div class="">
+        <button class="overflow-hidden btn  btn-secondary" at-button [matMenuTriggerFor]="menu">Sort</button>
+        <mat-menu #menu="matMenu">
+          <button (click)="sortByID()" mat-menu-item>Id</button>
+          <button (click)="sortByName()" mat-menu-item>Name</button>
+        </mat-menu>
+        
+      </div>
+
       <a routerLink="add" class="btn btn-primary">New User</a></div>
+
+      <button (click)="generatePDF()" class="btn btn-outline-success">Export</button>
+
     <table class="table mt-5 border">
       <thead>
         <tr>
@@ -24,8 +38,7 @@
         </tr>
       </thead>
       <tbody class="table-group-divider">
-
-        <tr *ngFor="let user of allUsers | search : 'a' " [hidden]="user.id=='1'"  >
+        <tr *ngFor="let user of allUsers | search : searchKey | paginate: { itemsPerPage: 5, currentPage: p }" [hidden]="user.id=='1'"  >
           <th >{{user.id}}</th>
           <td>{{user.name}}</td>
           <td>{{user.email}}</td>
@@ -38,8 +51,16 @@
           </td>
         </tr>
 
+        <tr *ngIf="(allUsers|search:searchKey).length===0">
+          <p class="">User Does not Exist</p>
+        </tr>
+
       </tbody>
     </table>
+
+    <div>
+     <div class="text-center"> <pagination-controls (pageChange)="p = $event"></pagination-controls></div>
+    </div>
 
   </div>
 
